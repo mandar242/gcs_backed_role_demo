@@ -1,0 +1,17 @@
+---
+- name: Apply TF configuration with gcs remote backend (This creates tfstate file in bucket)
+  hosts: all
+  gather_facts: true
+  vars:
+    project_name: ""
+    bucket_name: ""
+  tasks:
+    - name: Generate Terraform configuration
+      ansible.builtin.template:
+        src: main.tf.j2
+        dest: "main.tf"
+
+    - name: Apply config
+      cloud.terraform.terraform:
+        project_path: "{{ playbook_dir }}"
+        force_init: true

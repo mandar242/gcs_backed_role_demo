@@ -1,0 +1,13 @@
+# Specify cloud provider
+provider "google" {
+    project = "{{ project_name }}"
+    region = "us-central1"
+}
+
+terraform {
+  # remote state to be stored in google cloud bucket
+  backend "gcs" {
+      bucket = "{{ bucket_name }}"
+      prefix = "workspaces"
+  }
+}
